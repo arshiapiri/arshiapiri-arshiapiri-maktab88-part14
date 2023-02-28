@@ -1,4 +1,3 @@
-const { create } = require("domain");
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
@@ -22,7 +21,7 @@ const template = [
 router.post("/create-product", function (req, res) {
   const newProduct = req.body
 
-  const createUser = () => {
+  const validation = () => {
 
     let keys = Object.keys(newProduct);
     // validation 
@@ -40,7 +39,7 @@ router.post("/create-product", function (req, res) {
     let newData = [...products, newProduct];
     return fs.writeFileSync(path.join(__dirname, "../db/products-data.json"), JSON.stringify(newData));
   }
-  createUser()
+  validation()
   res.json(newProduct);
 });
 
@@ -75,28 +74,19 @@ router.get("/get-product/:id", function (req, res) {
 })
 
 router.put("/update-product/:id", function (req, res) {
+
   const newProduct = req.body
-
   const product = products.find(x => x.id == newProduct.id);
-
-
+  if(newProduct.id != req.params.id) return res.status(500).send("your ID cant Change");
   let keys = Object.keys(newProduct);
   if (keys.length === 0) return res.send("data object must not be empty");
-  if (newProduct.title) product.title = newProduct.title;
-  if (newProduct.id) product.id = newProduct.id;
-  if (newProduct.price) product.price = newProduct.price;
-  if (newProduct.rating) product.rating = newProduct.rating;
-  if (newProduct.stock) product.stock = newProduct.stock;
-  if (newProduct.brand) product.brand = newProduct.brand;
-  if (newProduct.category) product.category = newProduct.category;;
-
-  if (!product) {
-    throw new Error(`Product with this id doesn't exist`);
-  }
-  if (keys.find((property) => !template.includes(property)))
-  throw new Error(`property is not valid`);
-  Object.assign(product, newProduct);
+  let values = Object.values(newProduct);
+  console.log(values);
+  if (values.some((value) => value === "")) return res.send("value of property must not be empty");
+  if (keys.find((property) => !template.includes(property))) return res.send("property is not valid")
+  res.send(Object.assign(product, newProduct))
   return fs.writeFileSync(path.join(__dirname, "../db/products-data.json"), JSON.stringify(products));
+
 })
 
 
