@@ -89,5 +89,21 @@ router.put("/update-product/:id", function (req, res) {
 
 })
 
+router.delete("/removeProduct/:id", (req, res) => {
+
+  const productsTemp = products.filter(x => x.id != req.params.id);
+
+  try {
+      fs.writeFileSync(path.join(__dirname, "../db/product.json"), JSON.stringify(productsTemp));
+  } catch (err) {
+      console.log(err);
+      return res.status(400).send("Try again later!")
+  };
+
+
+  res.send("remove!");
+});
+
+
 
 module.exports = router;

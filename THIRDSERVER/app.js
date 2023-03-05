@@ -15,7 +15,6 @@ app.use(express.urlencoded({extended: true}))
 //sign up
 app.post("/auth/signup",  async (req, res) => {
     const data = req.body
-    console.log(data);
 
     const isDuplicateId = _.some(UserData, [
         "username",

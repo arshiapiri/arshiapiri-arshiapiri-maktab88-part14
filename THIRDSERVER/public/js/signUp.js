@@ -1,6 +1,7 @@
 function validation() {
  const fname = document.getElementById('fristname').value;
- const lname = document.getElementById('lastname').value;
+ const lname = document.getElementById('lastnamee').value;
+
  const psw = document.getElementById('password').value;
  const gnd = document.getElementById('gender').value;
 
@@ -33,22 +34,22 @@ function validation() {
     document.getElementById('pass').innerHTML = "Minimum 8 characters, at least 1 letter, 1 number and 1 specialcharacter (@$!%*#?&).";
     return false;
   }
-}
-
-document.getElementById("create-user").addEventListener("click", async () =>{
-  const data = {
-    "username": document.getElementById("username").value,
-    "password": document.getElementById('password').value,
-    "fristname": document.getElementById("fristname").value,
-    "lastname": document.getElementById("lastname").value,
-    "gender": document.getElementById("gender").value
-  };
-
-  await fetch("http://localhost:5000/auth/signup", {
-    method: "post",
-    headers: {
-      "content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
+  
+  document.getElementById("create-user").addEventListener("click", async () =>{
+    const data = {
+      "username": document.getElementById("username").value,
+      "password": document.getElementById('password').value,
+      "fristname": document.getElementById("fristname").value,
+      "lastname": document.getElementById("lastname").value,
+      "gender": document.getElementById("gender").value
+    };
+  
+    await fetch("http://localhost:5000/auth/signup", {
+      method: "post",
+      headers: {
+        "content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
   })
-})
+}
