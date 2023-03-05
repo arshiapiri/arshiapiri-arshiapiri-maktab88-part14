@@ -60,7 +60,7 @@ app.post("/auth/login", function (req, res) {
   else res.send("ok");
 })
 
-app.use("/admin", userRouter);
+app.use("/admin", userRouter)
 
 app.get("/admin/panel", (req,res) => {
   res.sendFile(path.join(__dirname, "./views/admin-panel.html"))
