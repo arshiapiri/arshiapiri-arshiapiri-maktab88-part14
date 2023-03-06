@@ -18,15 +18,6 @@
         "category": "smartphones"
     },
     {
-        "id": 3,
-        "title": "iphone",
-        "price": 140,
-        "rating": 4.09,
-        "stock": 115,
-        "brand": "Samsung",
-        "category": "smartphones"
-    },
-    {
         "id": 4,
         "title": "OPPOF19",
         "price": 280,

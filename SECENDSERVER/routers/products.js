@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
-const products = require("../db/products-data.json");
+const products = require("../db/product.json");
 
 
 // create new product

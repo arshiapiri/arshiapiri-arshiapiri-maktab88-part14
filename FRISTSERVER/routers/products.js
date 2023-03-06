@@ -81,7 +81,6 @@ router.put("/update-product/:id", function (req, res) {
   let keys = Object.keys(newProduct);
   if (keys.length === 0) return res.send("data object must not be empty");
   let values = Object.values(newProduct);
-  console.log(values);
   if (values.some((value) => value === "")) return res.send("value of property must not be empty");
   if (keys.find((property) => !template.includes(property))) return res.send("property is not valid")
   res.send(Object.assign(product, newProduct))

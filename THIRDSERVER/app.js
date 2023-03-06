@@ -52,11 +52,29 @@ app.get("/auth/login", function (req, res) {
 })
 
 app.post("/auth/login", function (req, res) {
-  let newperson = req.body.username;
-  let findUsername = UserData.find((x) => x.username == newperson);
-  let findpassword = UserData.find((x) => x.password == req.body.password);
-  if ((!findUsername, !findpassword)) return res.send("erooooooore!");
-  else res.send("ok");
+  const data = req.body
+
+  let findUsername = _.some(UserData, [
+    "username",
+    data.username
+  ]);
+  let findpassword = _.some(UserData, [
+    "password",
+    data.password
+  ]);
+
+  // const { username, password } = req.body;
+  // const user = users.find(
+  //   (user) => user.username === username && user.password === password
+  // );
+  // if (!user) return res.status(401).send("Error!");
+  // res.json({ user });
+  if (!!findUsername && !!findpassword) {
+    return res.send("your log in is sucessfully");
+  }
+  else{
+    return res.send("error!")
+  }
 })
 
 app.use("/admin", userRouter);
